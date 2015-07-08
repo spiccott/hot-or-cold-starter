@@ -37,10 +37,10 @@ $(document).ready(function(){
   			$("#userGuess").val("");
 			$("#guessList").prepend( '<li>' + guess + '</li>' );
 			absDistance = Math.abs(answer - guess);
-			// prevAbsDistance = Math.abs();
 			if (guess === answer) {
 				$("#feedback").text("Yay, You Win!");
-				// $("#guessButton").val("Play again?").click(resetGame);
+				$("#guessButton").val("Play again?");
+				console.log("You win.")
 			}
 			else {
 				if (prevAbsDistance === null) {
@@ -75,20 +75,20 @@ $(document).ready(function(){
 		else {
 			$("#feedback").text("Please guess a number between 1 and 100!");
 		}
-	  	$(".new").mouseup(function (event) {
-	  		console.log("new game")
-	  		event.preventDefault();
-	  		count = 0;
-	  		answer = generateNumber();
-	  		console.log("The answer is: " + answer)
-			absDistance = null;
-			prevAbsDistance = null;
-			$("#feedback").text("Make your Guess!");
-			$("#guessList").html( "" );
-			$("#count").text("0");
-			$("#guessButton").val("Guess");
-	  	});
 	}
+	$(".new").mouseup(function (event) {
+  		console.log("new game")
+  		event.preventDefault();
+  		count = 0;
+  		answer = generateNumber();
+  		console.log("The answer is: " + answer)
+		absDistance = null;
+		prevAbsDistance = null;
+		$("#feedback").text("Make your Guess!");
+		$("#guessList").html( "" );
+		$("#count").text("0");
+		$("#guessButton").val("Guess");
+  	});
 });
 
 
