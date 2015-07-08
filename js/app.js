@@ -16,7 +16,6 @@ $(document).ready(function(){
   	var count = 0;
 	var answer = generateNumber();
 	console.log("Answer is: " + answer);
-	var guessList = []
 	var absDistance = null;
 	var prevAbsDistance = null;
 
@@ -36,7 +35,6 @@ $(document).ready(function(){
   			count = count + 1;
   			$("#count").html(count);
   			$("#userGuess").val("");
-  			guessList.push(guess);
 			$("#guessList").prepend( '<li>' + guess + '</li>' );
 			absDistance = Math.abs(answer - guess);
 			// prevAbsDistance = Math.abs();
@@ -77,12 +75,12 @@ $(document).ready(function(){
 		else {
 			$("#feedback").text("Please guess a number between 1 and 100!");
 		}
-	  	$(".new").click(function (event) {
+	  	$(".new").mouseup(function (event) {
+	  		console.log("new game")
 	  		event.preventDefault();
 	  		count = 0;
 	  		answer = generateNumber();
 	  		console.log("The answer is: " + answer)
-			guessList = []
 			absDistance = null;
 			prevAbsDistance = null;
 			$("#feedback").text("Make your Guess!");
