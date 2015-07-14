@@ -14,34 +14,53 @@ $(document).ready(function(){
 
   	/*--- Global variables ---*/
   	var count = 0;
-	var answer = generateNumber();
-	console.log("Answer is: " + answer);
+	var answer = null
 	var absDistance = null;
 	var prevAbsDistance = null;
+	var guess = null
+	// var initFormState = $(".game>form").html();
 
 	function generateNumber() {
 		return Math.floor(Math.random() * 100) + 1;
 	}
 
-	function submitGuess() {
-		$("#guessButton").click(playGame);
-		console.log('submit guess')
-	}
+	newGame();
 
-	submitGuess();
+	$("#guessButton").click(playGame);
+
+	function newGame() {
+		console.log("--New Game Created--")
+		guess = null
+		count = 0;
+  		answer = generateNumber();
+  		console.log("The answer is: " + answer);
+  		absDistance = null;
+		prevAbsDistance = null;
+		$("#feedback").text("Make your Guess!");
+		$("#guessList").empty();
+		$("#count").html(count);
+		$("#guessButton").val("Guess");
+		$("#userGuess").val("");
+	}
 
   	function playGame() {
 		var guess = parseInt($("#userGuess").val());
   		if (guess !== null && $.isNumeric(guess) && ( 1 < guess < 101 )) {
   			count = count + 1;
   			$("#count").html(count);
+  			console.log(guess);
   			$("#userGuess").val("");
 			$("#guessList").prepend( '<li>' + guess + '</li>' );
 			absDistance = Math.abs(answer - guess);
 			if (guess === answer) {
 				$("#feedback").text("Yay, You Win!");
-				$("#guessButton").text("Play again?").click(resetGame);
-				console.log("You win.")
+				console.log("You win.");
+				// $("#guessButton").val("Play again?");
+				$("#guessButton").click(function() {
+					// $(".game>form").html(initFormState);
+					newGame();
+					return;
+				});
 			}
 			else {
 				if (prevAbsDistance === null) {
@@ -75,24 +94,14 @@ $(document).ready(function(){
   		}
 		else {
 			$("#feedback").text("Please guess a number between 1 and 100!");
+			console.log("Not a valid input");
 		}
 	}
-	function resetGame() {
-		count = 0;
-  		answer = generateNumber();
-  		console.log("The new answer is: " + answer);
-		absDistance = null;
-		prevAbsDistance = null;
-		$("#feedback").text("Make your Guess!");
-		$("#guessList").html( "" );
-		$("#count").text("0");
-		$("#guessButton").text("Guess");
-		console.log(count)
-	}
-	$(".new").click(function (event) {
-		event.preventDefault();
-  		console.log("new game");
-  		resetGame();
+
+	$(".new").click(function () {
+  		console.log("Reset Game");
+  		newGame();
+  		return;
   	});
 });
 
