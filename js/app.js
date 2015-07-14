@@ -61,7 +61,7 @@ $(document).ready(function(){
 				console.log("You win.");
 				$("input#userGuess").prop( "disabled", true );
 				$("#guessButton").val("Play again?");
-				$(".game>form").submit(function (e) {
+				$("#guessButton").click(function (e) {
 					e.preventDefault();
 					$("#guessButton").unbind();
 					return newGame();
