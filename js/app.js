@@ -12,13 +12,11 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});
 
-  	/*--- Global variables ---*/
   	var count = 0;
 	var answer = null
 	var absDistance = null;
 	var prevAbsDistance = null;
 	var guess = null
-	// var initFormState = $(".game>form").html();
 
 	function generateNumber() {
 		return Math.floor(Math.random() * 100) + 1;
@@ -26,7 +24,10 @@ $(document).ready(function(){
 
 	newGame();
 
-	$("#guessButton").click(playGame);
+	$("#guessButton").submit(function (e) {
+		playGame();
+		e.preventDefault();
+	});
 
 	function newGame() {
 		console.log("--New Game Created--")
@@ -45,7 +46,8 @@ $(document).ready(function(){
 
   	function playGame() {
 		var guess = parseInt($("#userGuess").val());
-  		if (guess !== null && $.isNumeric(guess) && ( 1 < guess < 101 )) {
+		$("#guessButton").unbind();
+  		if (guess !== null && $.isNumeric(guess) && guess<101 && guess>0) {
   			count = count + 1;
   			$("#count").html(count);
   			console.log(guess);
@@ -55,9 +57,10 @@ $(document).ready(function(){
 			if (guess === answer) {
 				$("#feedback").text("Yay, You Win!");
 				console.log("You win.");
-				// $("#guessButton").val("Play again?");
-				$("#guessButton").click(function() {
-					// $(".game>form").html(initFormState);
+				$("#guessButton").val("Play again?");
+				$("#guessButton").click(function(event) {
+					$("#guessButton").unbind();
+					event.preventDefault();
 					newGame();
 					return;
 				});
