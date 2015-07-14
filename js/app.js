@@ -61,10 +61,10 @@ $(document).ready(function(){
 				console.log("You win.");
 				$("input#userGuess").prop( "disabled", true );
 				$("#guessButton").val("Play again?");
-				$("#guessButton").click(function (e) {
+				$(".game>form").submit(function (e) {
 					e.preventDefault();
-					newGame();
-					return;
+					$("#guessButton").unbind();
+					return newGame();
 				});
 			}
 			else {
