@@ -24,9 +24,9 @@ $(document).ready(function(){
 
 	newGame();
 
-	$("#guessButton").submit(function (e) {
-		playGame();
+	$(".game>form").submit(function (e) {
 		e.preventDefault();
+		playGame();
 	});
 
 	function newGame() {
@@ -42,6 +42,8 @@ $(document).ready(function(){
 		$("#count").html(count);
 		$("#guessButton").val("Guess");
 		$("#userGuess").val("");
+		$("input#userGuess").prop( "disabled", false );
+		return;
 	}
 
   	function playGame() {
@@ -57,10 +59,10 @@ $(document).ready(function(){
 			if (guess === answer) {
 				$("#feedback").text("Yay, You Win!");
 				console.log("You win.");
+				$("input#userGuess").prop( "disabled", true );
 				$("#guessButton").val("Play again?");
-				$("#guessButton").click(function(event) {
-					$("#guessButton").unbind();
-					event.preventDefault();
+				$("#guessButton").click(function (e) {
+					e.preventDefault();
 					newGame();
 					return;
 				});
